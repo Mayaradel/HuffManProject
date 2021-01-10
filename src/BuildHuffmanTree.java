@@ -86,68 +86,71 @@ public class BuildHuffmanTree {
 
     static void DecompressFile() throws IOException {
 
-        File file = new File("huffmanFile.txt");
+        File file = new File("output.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
 
-        Map<String, Character> decodings = new HashMap<>();
+        Map<String, String> decodings = new HashMap<>();
         int zeroPadding;
         int hashMapSize;
 
         String line = br.readLine();
         zeroPadding = Integer.parseInt(line);
+        //System.out.println(zeroPadding);
         line = br.readLine();
         hashMapSize = Integer.parseInt(line);
+        //System.out.println(hashMapSize);
 
         //StringBuilder stringBuilder = new StringBuilder();
 
 
-        while ((line = br.readLine()) != null) {
 
+        for (int i=0;i<hashMapSize;i++) {
+            line = br.readLine();
             String[] hashmapEntires = line.split("=", 2);
             if (hashmapEntires.length >= 2) {
-                decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(0));
+                decodings.put(hashmapEntires[1], hashmapEntires[0]);
             }
-
-
-//                if (hashmapEntires[0].equals("\n")) {
-//                    br.readLine();
-//                    decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(0));
-//                } else {
-//                    decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(0));
-//////
-//                }
-//
-//            }
-//            if (line.equals("\n")) {
-////                String[] hashmapEntires = line.split("=", 2);
-////                if (hashmapEntires.length >= 2) {
-////                    decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(1));
-////                }
-//                line = br.readLine();
-//                decodings.put(line.substring(1), '\n');
-//            } else if (line.equals("\r")) {
-//                line = br.readLine();
-//                decodings.put(line.substring(1), '\r');
-//            }
-////            else {
-////                String[] hashmapEntires = line.split("=", 2);
-////                if (hashmapEntires.length >= 2) {
-////                    decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(0));
-////                }
-//            }
-
-//moshkla fl newline
-
-
         }
 
         System.out.println(zeroPadding + "\n" + hashMapSize);
-        for (Map.Entry<String, Character> entry : decodings.entrySet()) {
-            System.out.println
-                    (entry.getKey() + "=" + entry.getValue());
+        for (Map.Entry<String, String> entry : decodings.entrySet()) {
+            System.out.println(entry.getKey() + "=" + entry.getValue());
         }
 
+        String asci = "";
+        while((line = br.readLine()) != null ){
+            asci += line;
+        }
+        asci = AsciiToBinary(asci);
+        System.out.println(asci);
+
+
     }
+// 0111010111111101100000111011001111011011011100000010001000000000
+// 00000000000000010000001000000011000001000000010100000110000001110000100000001001000010100000101100001100000011010000111000001111
+
+    public static String AsciiToBinary(String asciiString) {
+
+        byte[] bytes = asciiString.getBytes();
+        StringBuilder binary = new StringBuilder(bytes.length * 8);
+
+        for (int i = 0; i < bytes.length; i++) {
+            int val = i;
+            for (int j = 0; j < 8; j++) {
+                if ((val & 128) == 0) {
+                    binary.append(0);
+                } else {
+                    binary.append(1);
+                }
+                val <<= 1;
+            }
+
+
+        }
+        return binary.toString();
+    }
+
+
 
     public static void compressFile(Node root, char[] characters) throws IOException {
 

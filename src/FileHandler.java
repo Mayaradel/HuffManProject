@@ -27,8 +27,7 @@ public class FileHandler {
         long startTime = System.nanoTime();
         BuildHuffmanTree.buildHuffmanTree(stringBuilder.toString());
         long elapsedTime = System.nanoTime() - startTime;
-        System.out.println("Total execution time: "
-                + elapsedTime / 1000000 + "ms");
+        System.out.println("Total execution time: " + elapsedTime / 1000000 + "ms");
 
         br.close();
 
@@ -52,7 +51,13 @@ public class FileHandler {
         outputStream.write(huffmanCode.size() + "\n");
 
         for (Map.Entry<Character, String> entry : huffmanCode.entrySet()) {
-            outputStream.write(entry.getKey() + "=" + entry.getValue() + "\n");
+            if(entry.getKey() == '\n')
+                outputStream.write("\\n" + "=" + entry.getValue() + "\n");
+            else if(entry.getKey() == '\r')
+                outputStream.write("\\r" + "=" + entry.getValue() + "\n");
+            else
+                outputStream.write(entry.getKey() + "=" + entry.getValue() + "\n");
+
         }
 
         outputStream.write((ascii) + "\n");

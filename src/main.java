@@ -13,7 +13,7 @@ public class main {
         if (choice == 1) {
             FileHandler.fileReader();
         } else {
-            System.out.println("later");
+            BuildHuffmanTree.DecompressFile();
         }
 
     }
