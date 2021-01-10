@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,6 +81,71 @@ public class BuildHuffmanTree {
         }
 
         compressFile(root, characters);
+
+    }
+
+    static void DecompressFile() throws IOException {
+
+        File file = new File("huffmanFile.txt");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+        Map<String, Character> decodings = new HashMap<>();
+        int zeroPadding;
+        int hashMapSize;
+
+        String line = br.readLine();
+        zeroPadding = Integer.parseInt(line);
+        line = br.readLine();
+        hashMapSize = Integer.parseInt(line);
+
+        //StringBuilder stringBuilder = new StringBuilder();
+
+
+        while ((line = br.readLine()) != null) {
+
+            String[] hashmapEntires = line.split("=", 2);
+            if (hashmapEntires.length >= 2) {
+                decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(0));
+            }
+
+
+//                if (hashmapEntires[0].equals("\n")) {
+//                    br.readLine();
+//                    decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(0));
+//                } else {
+//                    decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(0));
+//////
+//                }
+//
+//            }
+//            if (line.equals("\n")) {
+////                String[] hashmapEntires = line.split("=", 2);
+////                if (hashmapEntires.length >= 2) {
+////                    decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(1));
+////                }
+//                line = br.readLine();
+//                decodings.put(line.substring(1), '\n');
+//            } else if (line.equals("\r")) {
+//                line = br.readLine();
+//                decodings.put(line.substring(1), '\r');
+//            }
+////            else {
+////                String[] hashmapEntires = line.split("=", 2);
+////                if (hashmapEntires.length >= 2) {
+////                    decodings.put(hashmapEntires[1], hashmapEntires[0].charAt(0));
+////                }
+//            }
+
+//moshkla fl newline
+
+
+        }
+
+        System.out.println(zeroPadding + "\n" + hashMapSize);
+        for (Map.Entry<String, Character> entry : decodings.entrySet()) {
+            System.out.println
+                    (entry.getKey() + "=" + entry.getValue());
+        }
 
     }
 

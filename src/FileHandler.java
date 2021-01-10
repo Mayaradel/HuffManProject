@@ -39,6 +39,8 @@ public class FileHandler {
     }
 
 
+
+
     static void fileWriter(Map<Character, String> huffmanCode, int padding, StringBuilder ascii) throws IOException {
 
         File file = new File("huff.txt");
