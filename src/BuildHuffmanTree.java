@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 public class BuildHuffmanTree {
     public static boolean isLeaf(Node root) {
@@ -19,12 +20,11 @@ public class BuildHuffmanTree {
         }
         // Found a leaf node
         if (isLeaf(root)) {
-//            if (str.length() > 0) {
-//                encodings.put(root.character, str);
-//            } else {
-//                encodings.put(root.character, "1");
-//            }
-            encodings.put(root.character, str.length() > 0 ? str : "1");
+            if (str.length() > 0) {
+                encodings.put(root.character, str);
+            } else {
+                encodings.put(root.character, "1");
+            }
         }
 
         encode(root.leftChild, str + '0', encodings);
@@ -184,7 +184,6 @@ public class BuildHuffmanTree {
 
             int ascii = Integer.parseInt(encodedString.substring(8 * j, (j + 1) * 8), 2);
             char x = (char) ascii;
-//            System.out.println(x);
             asciii.append(x);
         }
 
@@ -195,4 +194,8 @@ public class BuildHuffmanTree {
 //        long compressedCost = 0;
     }
 
+    public static void decompressFile(){
+
+    }
 }
+
