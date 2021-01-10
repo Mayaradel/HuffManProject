@@ -15,18 +15,6 @@ public class main {
         } else {
             System.out.println("later");
         }
-//        if (LeafNode(root)) {
-//            // Special case: For input like a, aa, aaa, etc.
-//            while (root.data-- > 0) {
-//                System.out.print(root.c);
-//            }
-//        } else {
-//            // Traverse the Huffman Tree again and this time,
-//            // decode the encoded string
-//            int index = -1;
-//            while (index < sb.length() - 1) {
-//                index = decompress(root, index, sb);
-//            }
-//        }
+
     }
 }

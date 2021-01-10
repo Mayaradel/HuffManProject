@@ -18,10 +18,6 @@ public class FileHandler {
             stringBuilder.append(line);
             stringBuilder.append(System.getProperty("line.separator"));
 
-//
-
-//            stringBuilder.append("\r\n");
-//            stringBuilder.append("\n");
         }
 
         stringBuilder.deleteCharAt(stringBuilder.length() - 1);
@@ -41,13 +37,13 @@ public class FileHandler {
 
     static void fileWriter(Map<Character, String> huffmanCode, int padding, StringBuilder ascii) throws IOException {
 
-        File file = new File("huff.txt");
+        File file = new File("output.txt");
 
         if (!file.exists()) {
             file.createNewFile();
         }
 
-        Writer outputStream = new OutputStreamWriter(new FileOutputStream("huff.txt", false), "ISO_8859_1");
+        Writer outputStream = new OutputStreamWriter(new FileOutputStream(file.getName(), false), "ISO_8859_1");
 
 //        FileWriter fw = new FileWriter(file, false);
         outputStream.write(padding + "\n");
