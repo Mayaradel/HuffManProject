@@ -61,15 +61,15 @@ public class BuildHuffmanTree {
         byte[] bytes = asciiString.getBytes(StandardCharsets.ISO_8859_1);
         StringBuilder binary = new StringBuilder(bytes.length * 8);
 
-        for (int i =0 ; i<bytes.length ; i++){
+        for (int i = 0; i < bytes.length; i++) {
             int value = bytes[i];
-            for (int j= 0 ; j<8 ; j++) {
+            for (int j = 0; j < 8; j++) {
                 if ((value & 128) == 0) {
                     binary.append(0);
                 } else {
                     binary.append(1);
                 }
-                value <<=1;
+                value <<= 1;
             }
         }
         return binary.toString();

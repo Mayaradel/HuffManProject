@@ -20,9 +20,9 @@ public class FileHandler {
 
         }
 
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-
+//        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+//        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
 
         long startTime = System.nanoTime();
         BuildHuffmanTree.buildHuffmanTree(stringBuilder.toString());
