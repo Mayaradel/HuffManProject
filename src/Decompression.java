@@ -45,10 +45,8 @@ public class Decompression {
         System.out.println(binary);
 
         if (zeroPadding > 0) {
-            binary.deleteCharAt(binary.length() - 1);
-            binary.deleteCharAt(binary.length() - 1);
-            binary.deleteCharAt(binary.length() - 1);
-            binary.deleteCharAt(binary.length() - 1);
+
+            binary = binary.delete(binary.length() - zeroPadding, binary.length());
             System.out.println(binary);
         }
 
@@ -80,14 +78,17 @@ public class Decompression {
                 }
                 key = "";
             }
+
             i++;
             c = binary.charAt(i);
             key += c;
 
         }
+
         outputStream.flush();
         outputStream.close();
         System.out.println();
+
 
     }
 
