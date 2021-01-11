@@ -58,8 +58,6 @@ public class BuildHuffmanTree {
 
         // create a root node
         Node root = null;
-
-
         while (Queue.size() > 1) {
 
             Node firstMinNode = Queue.peek();
@@ -173,16 +171,18 @@ public class BuildHuffmanTree {
         byte[] bytes = asciiString.getBytes(StandardCharsets.ISO_8859_1);
         StringBuilder binary = new StringBuilder(bytes.length * 8);
 
-        for (byte b : bytes) {
-            int val = b;
-            for (int i = 0; i < 8; i++) {
-                binary.append((val & 128) == 0 ? 0 : 1);
-                val <<= 1;
+        for (int i =0 ; i<bytes.length ; i++){
+            int value = bytes[i];
+            for (int j= 0 ; j<8 ; j++) {
+                if ((value & 128) == 0) {
+                    binary.append(0);
+                } else {
+                    binary.append(1);
+                }
+                value <<=1;
             }
         }
-
         return binary.toString();
-
     }
 
 
@@ -200,7 +200,6 @@ public class BuildHuffmanTree {
         for (char c : characters) {
             encodedString.append(encodings.get(c));
         }
-
 
         System.out.println("Encoded string is: " + encodedString);
 
@@ -225,36 +224,7 @@ public class BuildHuffmanTree {
 
         FileHandler.fileWriter(encodings, zeroPaddingNum, asciii);
 
-//        String buffer = "";
-//        long asciiCost = (characters.length)*8;
-//        long compressedCost = 0;
     }
-
-
-//    public static int decompress(Node root, int index, StringBuilder sb) {
-//
-//
-//        if (root == null) {
-//            return index;
-//        }
-//        // Found a leaf node
-//        if (isLeaf(root)) {
-//            System.out.print(root.character);
-//            return index;
-//        }
-//        index++;
-//
-//        if (sb.charAt(index) == '0') {
-//            root = root.leftChild;
-//        } else
-//            root = root.rightChild;
-//        // repeated recursively
-//        index = decompress(root, index, sb);
-//        return index;
-//    }
-
-    // 0111010111111101100000111011001111011011011100000010001000000000
-    // 0111010111111101100000111011001111011011011100000010001000000000
 
 }
 
