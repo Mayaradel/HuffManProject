@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -57,6 +55,7 @@ public class BuildHuffmanTree {
             node.leftChild = null;
             node.rightChild = null;
             Queue.add(node);
+
         });
 
         // create a root node
@@ -87,7 +86,7 @@ public class BuildHuffmanTree {
     static void DecompressFile() throws IOException {
 
         File file = new File("output.txt");
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
 
         Map<String, String> decodings = new HashMap<>();
         int zeroPadding;
@@ -95,16 +94,11 @@ public class BuildHuffmanTree {
 
         String line = br.readLine();
         zeroPadding = Integer.parseInt(line);
-        //System.out.println(zeroPadding);
         line = br.readLine();
         hashMapSize = Integer.parseInt(line);
-        //System.out.println(hashMapSize);
-
-        //StringBuilder stringBuilder = new StringBuilder();
 
 
-
-        for (int i=0;i<hashMapSize;i++) {
+        for (int i = 0; i < hashMapSize; i++) {
             line = br.readLine();
             String[] hashmapEntires = line.split("=", 2);
             if (hashmapEntires.length >= 2) {
@@ -117,39 +111,43 @@ public class BuildHuffmanTree {
             System.out.println(entry.getKey() + "=" + entry.getValue());
         }
 
-        String asci = "";
-        while((line = br.readLine()) != null ){
-            asci += line;
+        StringBuilder binary = new StringBuilder();
+//        String ascii = "";
+        while ((line = br.readLine()) != null) {
+//            ascii += line;
+//            System.out.println(ascii);
+            binary.append(AsciiToBinary(line));
+            System.out.println(line);
         }
-        asci = AsciiToBinary(asci);
-        System.out.println(asci);
 
+        System.out.println(binary);
+
+        if (zeroPadding > 0) {
+            binary.deleteCharAt(binary.length() - 1);
+            binary.deleteCharAt(binary.length() - 1);
+            binary.deleteCharAt(binary.length() - 1);
+            binary.deleteCharAt(binary.length() - 1);
+            System.out.println(binary);
+        }
 
     }
-// 0111010111111101100000111011001111011011011100000010001000000000
-// 00000000000000010000001000000011000001000000010100000110000001110000100000001001000010100000101100001100000011010000111000001111
 
     public static String AsciiToBinary(String asciiString) {
 
-        byte[] bytes = asciiString.getBytes();
+        byte[] bytes = asciiString.getBytes(StandardCharsets.ISO_8859_1);
         StringBuilder binary = new StringBuilder(bytes.length * 8);
 
-        for (int i = 0; i < bytes.length; i++) {
-            int val = i;
-            for (int j = 0; j < 8; j++) {
-                if ((val & 128) == 0) {
-                    binary.append(0);
-                } else {
-                    binary.append(1);
-                }
+        for (byte b : bytes) {
+            int val = b;
+            for (int i = 0; i < 8; i++) {
+                binary.append((val & 128) == 0 ? 0 : 1);
                 val <<= 1;
             }
-
-
         }
-        return binary.toString();
-    }
 
+        return binary.toString();
+
+    }
 
 
     public static void compressFile(Node root, char[] characters) throws IOException {
@@ -184,7 +182,6 @@ public class BuildHuffmanTree {
         StringBuilder asciii = new StringBuilder();
 
         for (int j = 0; j < (encodedString.length()) / 8; j++) {
-
             int ascii = Integer.parseInt(encodedString.substring(8 * j, (j + 1) * 8), 2);
             char x = (char) ascii;
             asciii.append(x);
@@ -197,8 +194,28 @@ public class BuildHuffmanTree {
 //        long compressedCost = 0;
     }
 
-    public static void decompressFile(){
 
-    }
+//    public static int decompress(Node root, int index, StringBuilder sb) {
+//
+//
+//        if (root == null) {
+//            return index;
+//        }
+//        // Found a leaf node
+//        if (isLeaf(root)) {
+//            System.out.print(root.character);
+//            return index;
+//        }
+//        index++;
+//
+//        if (sb.charAt(index) == '0') {
+//            root = root.leftChild;
+//        } else
+//            root = root.rightChild;
+//        // repeated recursively
+//        index = decompress(root, index, sb);
+//        return index;
+//    }
+
 }
 

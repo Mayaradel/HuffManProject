@@ -33,9 +33,6 @@ public class FileHandler {
 
     }
 
-
-
-
     static void fileWriter(Map<Character, String> huffmanCode, int padding, StringBuilder ascii) throws IOException {
 
         File file = new File("output.txt");
@@ -44,23 +41,23 @@ public class FileHandler {
             file.createNewFile();
         }
 
-        Writer outputStream = new OutputStreamWriter(new FileOutputStream(file.getName(), false), "ISO_8859_1");
+        Writer outputStream = new OutputStreamWriter(new FileOutputStream(file.getName(), false), "ISO-8859-1");
 
 //        FileWriter fw = new FileWriter(file, false);
         outputStream.write(padding + "\n");
         outputStream.write(huffmanCode.size() + "\n");
 
         for (Map.Entry<Character, String> entry : huffmanCode.entrySet()) {
-            if(entry.getKey() == '\n')
+            if (entry.getKey() == '\n')
                 outputStream.write("\\n" + "=" + entry.getValue() + "\n");
-            else if(entry.getKey() == '\r')
+            else if (entry.getKey() == '\r')
                 outputStream.write("\\r" + "=" + entry.getValue() + "\n");
             else
                 outputStream.write(entry.getKey() + "=" + entry.getValue() + "\n");
 
         }
 
-        outputStream.write((ascii) + "\n");
+        outputStream.write(String.valueOf(ascii));
 
         outputStream.flush();
         System.out.println("File written Successfully");
