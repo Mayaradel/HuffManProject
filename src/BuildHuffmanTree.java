@@ -40,11 +40,9 @@ public class BuildHuffmanTree {
         for (char c : characters) {
             if (frequencies.containsKey(c)) {
                 frequencies.put(c, frequencies.get(c) + 1);
-
             } else {
                 frequencies.put(c, 1);
             }
-
         }
         PriorityQueue<Node> Queue = new PriorityQueue<>(frequencies.size() + 1, new MyComparator());
 
@@ -85,7 +83,7 @@ public class BuildHuffmanTree {
 
     static void DecompressFile() throws IOException {
 
-        File file = new File("output.txt");
+        File file = new File("Compressed file.txt");
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));
 
         Map<String, String> decodings = new HashMap<>();
@@ -130,7 +128,45 @@ public class BuildHuffmanTree {
             System.out.println(binary);
         }
 
+
+        File f = new File("Decompressed file.txt");
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+        Writer outputStream = new OutputStreamWriter(new FileOutputStream(f.getName(), false));
+
+
+        int i=0;
+        char c = binary.charAt(i);
+
+        String key = "";
+        key += c;
+        System.out.println("Content:");
+        while (key != null && i<binary.length()-1){
+            if (decodings.get(key) != null){
+                if(decodings.get(key).equals("\\n")){
+                    System.out.println();
+                    //outputStream.write(padding + "\n");
+                    outputStream.write("\n");
+                }
+                else if(decodings.get(key).equals("\\r")){}
+                else{
+                    System.out.print(decodings.get(key));
+                    outputStream.write(decodings.get(key));
+
+                }
+                key  = "";
+            }
+            i++;
+            c = binary.charAt(i);
+            key += c;
+
+        }
+        outputStream.flush();
+        outputStream.close();
+        System.out.println();
     }
+
 
     public static String AsciiToBinary(String asciiString) {
 

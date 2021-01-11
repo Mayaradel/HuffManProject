@@ -35,7 +35,7 @@ public class FileHandler {
 
     static void fileWriter(Map<Character, String> huffmanCode, int padding, StringBuilder ascii) throws IOException {
 
-        File file = new File("output.txt");
+        File file = new File("Compressed file.txt");
 
         if (!file.exists()) {
             file.createNewFile();
