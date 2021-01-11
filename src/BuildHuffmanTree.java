@@ -9,7 +9,6 @@ public class BuildHuffmanTree {
     public static boolean isLeaf(Node root) {
         return root.leftChild == null && root.rightChild == null;
     }
-
     // Traverse the Huffman Tree and store Huffman Codes in a map.
     public static void encode(Node root, String str, Map<Character, String> encodings) {
 
@@ -24,17 +23,12 @@ public class BuildHuffmanTree {
                 encodings.put(root.character, "1");
             }
         }
-
         encode(root.leftChild, str + '0', encodings);
         encode(root.rightChild, str + '1', encodings);
-
     }
 
     public static void buildHuffmanTree(String s) throws IOException {
-
         char[] characters = s.toCharArray();
-
-
         Map<Character, Integer> frequencies = new HashMap<>();
 
         for (char c : characters) {
@@ -53,7 +47,6 @@ public class BuildHuffmanTree {
             node.leftChild = null;
             node.rightChild = null;
             Queue.add(node);
-
         });
 
         // create a root node
@@ -74,9 +67,7 @@ public class BuildHuffmanTree {
 
             Queue.add(sum);
         }
-
         compressFile(root, characters);
-
     }
 
     static void DecompressFile() throws IOException {
@@ -93,7 +84,6 @@ public class BuildHuffmanTree {
         line = br.readLine();
         hashMapSize = Integer.parseInt(line);
 
-
         for (int i = 0; i < hashMapSize; i++) {
             line = br.readLine();
             String[] hashmapEntires = line.split("=", 2);
@@ -106,18 +96,12 @@ public class BuildHuffmanTree {
         for (Map.Entry<String, String> entry : decodings.entrySet()) {
             System.out.println(entry.getKey() + "=" + entry.getValue());
         }
-
         StringBuilder binary = new StringBuilder();
-//        String ascii = "";
         while ((line = br.readLine()) != null) {
-//            ascii += line;
-//            System.out.println(ascii);
             binary.append(AsciiToBinary(line));
             System.out.println(line);
         }
-
         System.out.println(binary);
-
         if (zeroPadding > 0) {
             binary.deleteCharAt(binary.length() - 1);
             binary.deleteCharAt(binary.length() - 1);
@@ -125,18 +109,13 @@ public class BuildHuffmanTree {
             binary.deleteCharAt(binary.length() - 1);
             System.out.println(binary);
         }
-
-
         File f = new File("Decompressed file.txt");
         if (!f.exists()) {
             f.createNewFile();
         }
         Writer outputStream = new OutputStreamWriter(new FileOutputStream(f.getName(), false));
-
-
         int i=0;
         char c = binary.charAt(i);
-
         String key = "";
         key += c;
         System.out.println("Content:");
@@ -151,20 +130,17 @@ public class BuildHuffmanTree {
                 else{
                     System.out.print(decodings.get(key));
                     outputStream.write(decodings.get(key));
-
                 }
                 key  = "";
             }
             i++;
             c = binary.charAt(i);
             key += c;
-
         }
         outputStream.flush();
         outputStream.close();
         System.out.println();
     }
-
 
     public static String AsciiToBinary(String asciiString) {
 
@@ -185,10 +161,7 @@ public class BuildHuffmanTree {
         return binary.toString();
     }
 
-
     public static void compressFile(Node root, char[] characters) throws IOException {
-
-
         Map<Character, String> encodings = new HashMap<>();
         encode(root, "", encodings);
 
@@ -200,10 +173,7 @@ public class BuildHuffmanTree {
         for (char c : characters) {
             encodedString.append(encodings.get(c));
         }
-
         System.out.println("Encoded string is: " + encodedString);
-
-
         int zeroPaddingNum = 0;
         if (((encodedString.length()) % 8) != 0) {
             zeroPaddingNum = 8 - (((encodedString.length()) % 8));
@@ -212,8 +182,6 @@ public class BuildHuffmanTree {
             }
             System.out.println("Encoded string with zero padding: " + encodedString);
         }
-
-
         StringBuilder asciii = new StringBuilder();
 
         for (int j = 0; j < (encodedString.length()) / 8; j++) {
@@ -221,10 +189,6 @@ public class BuildHuffmanTree {
             char x = (char) ascii;
             asciii.append(x);
         }
-
         FileHandler.fileWriter(encodings, zeroPaddingNum, asciii);
-
     }
-
 }
-
