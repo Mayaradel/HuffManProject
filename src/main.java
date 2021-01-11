@@ -25,7 +25,7 @@ public class main {
             }
         } else if (choice == 2) {
             try {
-                BuildHuffmanTree.DecompressFile();
+                Decompression.DecompressFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
